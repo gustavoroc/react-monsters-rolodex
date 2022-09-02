@@ -1,6 +1,5 @@
 import React from 'react';
 
-import logo from './logo.svg';
 import './App.css';
 
 class App extends React.Component {
@@ -8,40 +7,33 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      "name":{ "firstName": "Gustavo", "lastName": "Rocha" },
-      "company":"ZTM"
+      monsters: []
     };
   }
+
   componentDidMount() {
-    console.log("Montei!")
-  }
-  componentDidUpdate() {
-    console.log("Fui atualizado!")
+      fetch('https://jsonplaceholder.typicode.com/users')
+        .then(response => response.json())
+        .then((users) => this.setState(
+          () => {
+            return { monsters: users }
+          }, 
+          () => {
+            console.log(this.state)
+          }
+        ));
   }
 
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p> Hi, i'm {this.state.name.firstName } {this.state.name.lastName}, I work at {this.state.company} </p>
-          <button onClick={() => {
-            this.setState(
-            () => {
-              // Works in an asynchronous way;
-              return {
-                  name: { firstName: 'Andrei', lastName: 'Neaogie' }
-                };
-              }, 
-            () => {
-              // Only is called when the state is updated;
-                console.log(this.state);
-              }
+    return <div className='App'>
+      {this.state.monsters.map((monster, i) => {
+          return (
+            <div key={monster.id}>
+              <h1>{monster.name}</h1>
+            </div>
             );
-          }}> Change Name </button>
-        </header>
-      </div>
-    );
+         })}
+    </div>  
   }
 }
 
