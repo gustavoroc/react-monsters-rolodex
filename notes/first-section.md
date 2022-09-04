@@ -39,6 +39,16 @@ If you ever need to render your app on the server (a.k.a. server-side-rendering/
   - **setState** are called
   - **Props** updated;
 
+## Functional components:
+
+- Utilizes hooks in order to replicate the class behavior.
+- There are no lifecycles when it comes to functional components.
+- The idea is just functions and side-effects
+  - **Pure fn**: Are functions that only rely on its scope.
+  - **Unpure fn**: Are functions that have something to do outside of its scope.
+  - **Side Effects**: Are behavior that happen inside of a fn and change somethings in the outside scope.
+- Functional components are unpure functions;
+
 ---
 
 [Visual Reference](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
