@@ -12,6 +12,7 @@ const App = () => {
   const [searchField, setSearchField] = useState('');
   const [monsters, setMonsters] = useState([]);
   const [filteredMonsters, setFilteredMonsters] = useState(monsters);
+  const [title, setTitle] = useState('')
 
   useEffect(() => {
     // The callback is called when the component is mounted,
@@ -36,12 +37,25 @@ const App = () => {
     setSearchField(searchFieldString);
   };
 
+  const onTitleChange = (event) => {
+    // Changes the searchField on the state to the value of the input.
+    const searchFieldString = event.target.value.toLowerCase()
+    setTitle(searchFieldString);
+  };
+
+
   return (
     <div className='App'>
-          <h1 className='app-title'>Monsters Rolodex</h1>
+          <h1 className='app-title'>{title}</h1>
           <SearchBox 
                 onChangeHandler={onSearchChange} 
                 placeholder='search monsters'
+                className='monsters-search-box'
+            />
+          <br />
+          <SearchBox 
+                onChangeHandler={onTitleChange} 
+                placeholder='set the title'
                 className='monsters-search-box'
             />
           <CardList monsters={filteredMonsters}/>
