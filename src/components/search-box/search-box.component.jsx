@@ -1,11 +1,10 @@
-import { Component } from 'react';
+// import { Component } from 'react';
 
 import './search-box.style.css'
 // The style is not scoped.
 
-class SearchBox extends Component {
-    render() {
-        const { onChangeHandler, placeholder, className } = this.props;
+const SearchBox = (props) => {
+        const { onChangeHandler, placeholder, className } = props;
         return (
             <input 
                 type='search' 
@@ -15,6 +14,5 @@ class SearchBox extends Component {
             />
         )
     }
-}
 
 export default SearchBox;
