@@ -1,16 +1,34 @@
 // import React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import './App.css';
 
 import CardList from './components/card-list/card-list.component';
 import SearchBox from './components/search-box/search-box.component';
 
+
 const App = () => {
-  // Sempre que o estado muda ou props, toda a funcao e executada denovo.
-  console.log('render')
+  // Sempre que o estado muda ou props, toda a funcao é executada denovo.
   const [searchField, setSearchField] = useState('');
-  console.log(searchField)
+  const [monsters, setMonsters] = useState([]);
+  const [filteredMonsters, setFilteredMonsters] = useState(monsters);
+
+  useEffect(() => {
+    // The callback is called when the component is mounted,
+    // and is called again if the value inside of that '[]' is changed.
+    // Usually, it replaced the componentDidMount LifeCycle method.
+    fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response => response.json())
+            .then((monsters) => setMonsters(monsters))
+  }, [])
+
+  useEffect(() => {
+    const newFilteredMonsters = monsters.filter((monster) => {
+      // Filter the monsters based on the searchField.
+      return monster.name.toLowerCase().includes(searchField)
+    })
+    setFilteredMonsters(newFilteredMonsters)
+  }, [monsters, searchField])
 
   const onSearchChange = (event) => {
     // Changes the searchField on the state to the value of the input.
@@ -26,7 +44,7 @@ const App = () => {
                 placeholder='search monsters'
                 className='monsters-search-box'
             />
-          {/* <CardList monsters={filteredMonsters}/> */}
+          <CardList monsters={filteredMonsters}/>
       </div>
   )
 };
